@@ -12,7 +12,7 @@ export type Product = {
     count: number;
   };
 };
-export type CartItem = {
+export type CartItemType = {
   productId: string;
   quantity: number;
   product: Product;
