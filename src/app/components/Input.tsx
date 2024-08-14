@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
 
-interface CustomInputProps {
+interface InputProps {
   label: string;
   type?: string;
   value: string;
   onChange: (value: string) => void;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({
+const Input: React.FC<InputProps> = ({
   label,
   type = "text",
   value,
@@ -16,8 +16,12 @@ const CustomInput: React.FC<CustomInputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
 
   return (
     <div className="relative">
@@ -47,4 +51,4 @@ const CustomInput: React.FC<CustomInputProps> = ({
   );
 };
 
-export default CustomInput;
+export default Input;
