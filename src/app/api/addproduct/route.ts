@@ -1,17 +1,20 @@
 "use server";
 import client from "@/app/db/db";
 import { getUserFromDb, putUserInDB } from "@/app/db/dbUtils";
+import { Product } from "@/app/types";
 import { saltAndHashPassword } from "@/app/utils/password";
 import { genNextRes } from "@/app/utils/responseUtils";
 import { NextRequest, NextResponse } from "next/server";
 
-export const putProductInDB = async (product: Product) => {
+const putProductInDB = async (product: Partial<Product>) => {
   try {
     await client.connect();
+    delete product._id;
     const db = client.db("workflo");
     const collection = db.collection("products");
     const productRes = await collection.insertOne({
       ...product,
+      _id: undefined,
     });
 
     return productRes;

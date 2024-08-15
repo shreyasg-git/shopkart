@@ -1,12 +1,9 @@
-// pages/api/logout.ts
-
-import { NextApiRequest, NextApiResponse } from "next";
 import { serialize } from "cookie";
 import { genNextRes } from "@/app/utils/responseUtils";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { baseURL } from "@/middleware";
 
-export function POST(req: NextApiRequest, res: NextApiResponse) {
+export function POST(req: NextRequest) {
   // Only allow POST requests
   if (req.method !== "POST") {
     return genNextRes("Method not allowed", 405);

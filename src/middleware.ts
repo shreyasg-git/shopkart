@@ -72,10 +72,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next({ request: { headers: requestHeaders } });
   } catch (error) {
     console.error("ERROR IN MIDDLEWARE :: ", error);
-    return genNextRes("UWUWU Unauthorized", 401);
+    return genNextRes("Unauthorized", 401);
   }
 }
 
 export const config = {
-  matcher: [...OPEN_ROUTES, ...CLOSE_ROUTES, ...STRICT_ROUTES],
+  matcher: ["/", "/api/cart", "/cart", "/products", "/signin", "/signup"],
 };

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Our Products",
   description: "Browse our selection of products",
 };
-
+export const dynamic = "force-dynamic";
 export default async function ProductsPage() {
   const products = await getProducts();
 

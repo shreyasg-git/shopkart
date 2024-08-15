@@ -1,21 +1,24 @@
-import jwt from "jsonwebtoken";
-import { jwtVerify } from "jose";
+import { SignJWT, jwtVerify } from "jose";
 
 // require("dotenv").config();
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
-export const signAccessToken = (payload: any) => {
-  return new Promise((resolve, reject) => {
-    jwt.sign({ payload }, accessTokenSecret, {}, (err, token) => {
-      console.log("YOOO", err);
+export const signAccessToken = async (payload: any): Promise<string> => {
+  try {
+    const secret = new TextEncoder().encode(accessTokenSecret);
+    const alg = "HS256";
 
-      if (err) {
-        // reject(createHttpError.InternalServerError());
-        reject(new Error("Internal Server Error"));
-      }
-      resolve(token);
-    });
-  });
+    const jwt = await new SignJWT({ payload })
+      .setProtectedHeader({ alg })
+      .setIssuedAt()
+      .setExpirationTime("1h") // Set expiration time as needed
+      .sign(secret);
+
+    return jwt;
+  } catch (error) {
+    console.error("Error signing access token:", error);
+    throw new Error("Internal Server Error");
+  }
 };
 
 export const verifyAccessToken = async (token: any) => {
