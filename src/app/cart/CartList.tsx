@@ -20,10 +20,9 @@ interface CartListProps {
 
 export default function CartList({ items, syncCartItems }: CartListProps) {
   const [isDebouncing, setIsDebouncing] = useState(false);
-
   const { subtotal, discountAmount, total } = useMemo(() => {
     const subtotal = items.reduce(
-      (total, item) => total + item.product.price * item.quantity,
+      (total, item) => total + item.price * item.quantity,
       0
     );
     const discountRate = 0.1;
@@ -39,8 +38,6 @@ export default function CartList({ items, syncCartItems }: CartListProps) {
       return response.data;
     },
     onSuccess: (res) => {
-      console.log("SUCCESS SUECCSS");
-      console.log({ res });
       syncCartItems(res);
       setIsDebouncing(false);
     },

@@ -14,8 +14,6 @@ const loginUtil = async (data: { email: string; password: string }) => {
 
     if (!user) return false;
 
-    console.log("comparing ", password, " :: ", user.password);
-
     const checkPassword = bcrypt.compareSync(password, user.password);
 
     if (!checkPassword) return false;
@@ -33,8 +31,6 @@ const loginUtil = async (data: { email: string; password: string }) => {
 export async function POST(req: NextRequest, res: NextApiResponse) {
   try {
     const body = await req.json();
-
-    console.log("AAAAAAAa", body);
 
     if (req.method !== "POST") {
       return NextResponse.json(

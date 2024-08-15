@@ -1,14 +1,10 @@
-import { CartItem, Product } from "@/app/types";
+import { CartItemType, Product } from "@/app/types";
 import client from "../db/db";
 
 import { cookies, headers } from "next/headers";
 
-export async function getCart(): Promise<CartItem[]> {
+export async function getCart(): Promise<CartItemType[]> {
   const userId = headers().get("data-userId");
-  // const userId = request.headers.get("data-userId");
-  // const userId = "123123";
-  console.warn("=====", userId);
-  console.log("=====================================");
 
   await client.connect();
 
@@ -24,11 +20,18 @@ export async function getCart(): Promise<CartItem[]> {
   }
 
   const cartItemsWithProducts = await Promise.all(
-    cart.items.map(async (item: CartItem) => {
+    cart.items.map(async (item: CartItemType) => {
       const product = await productCollection.findOne({ _id: item.productId });
-      return { ...item, product: product as unknown as Product };
+
+      return {
+        ...item,
+        ...(product as unknown as Product),
+        productId: item.productId.toString(),
+        _id: undefined,
+      };
     })
   );
+  console.log({ CART: cartItemsWithProducts });
 
   return cartItemsWithProducts;
 }

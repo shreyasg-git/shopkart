@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import client from "@/app/db/db";
 import { ObjectId } from "mongodb";
-import { CartItem, Product } from "@/app/types";
+import { CartItemType, Product } from "@/app/types";
 
 export async function POST(request: NextRequest) {
   try {
     const userId = request.headers.get("data-userId");
-    console.log("GOT ADD TO CART POST REQ :: USERID :: ", userId);
 
     if (!userId) {
       return NextResponse.json(
@@ -26,7 +25,7 @@ export async function POST(request: NextRequest) {
       {
         $addToSet: {
           items: {
-            productId: new ObjectId(productId),
+            productId: ObjectId.createFromHexString(productId),
             quantity: 1,
           },
         },
@@ -37,7 +36,7 @@ export async function POST(request: NextRequest) {
     if (result.modifiedCount === 0 && result.upsertedCount === 0) {
       // The item was already in the cart, so let's increment its quantity
       await cartCollection.updateOne(
-        { userId, "items.productId": new ObjectId(productId) },
+        { userId, "items.productId": ObjectId.createFromHexString(productId) },
         { $inc: { "items.$.quantity": 1 } }
       );
     }
@@ -57,7 +56,6 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const userId = request.headers.get("data-userId");
-    console.log("GOT UPDATE CART QUANTITY PATCH REQ :: USERID :: ", userId);
 
     if (!userId) {
       return NextResponse.json(
@@ -101,11 +99,11 @@ export async function PATCH(request: NextRequest) {
     }
 
     const cartItemsWithProducts = await Promise.all(
-      updatedCart.items.map(async (item: CartItem) => {
+      updatedCart.items.map(async (item: CartItemType) => {
         const product = await productCollection.findOne({
           _id: item.productId,
         });
-        return { ...item, product: product as unknown as Product };
+        return { ...item, ...(product as unknown as Product) };
       })
     );
 

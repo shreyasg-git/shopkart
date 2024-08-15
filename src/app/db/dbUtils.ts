@@ -2,15 +2,11 @@ import client from "./db";
 
 export const getUserFromDb = async (email: string, hashedPass: string) => {
   try {
-    console.log("GOT COLLECTION");
-
     await client.connect();
     const db = client.db("workflo");
     const collection = db.collection("users");
-    console.log("GOT COLLECTION");
 
     const user = await collection.findOne({ email });
-    console.log("GOT UESRRRRR", user);
 
     return user;
   } catch (error) {

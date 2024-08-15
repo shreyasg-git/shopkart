@@ -28,16 +28,16 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity }) => {
     <li className="py-4 flex items-center flex-col justify-between sm:flex-row ">
       <div className="flex items-center">
         <img
-          src={item.product.image}
-          alt={item.product.title}
+          src={item.image}
+          alt={item.title}
           className="w-16 h-16 object-cover rounded-md mr-4"
         />
         <div>
-          <h3 className="md:text-lg sm:text-sm  font-semibold text-gray-800 line-clamp-2  hover:line-clamp-none  ">
-            {item.product.title}
+          <h3 className="md:text-lg sm:text-sm  font-semibold text-gray-800 line-clamp-2  hover:line-clamp-none">
+            {item.title}
           </h3>
           <p className="text-sm text-gray-500">
-            ${item.product.price.toFixed(2)} each
+            ${Number(item.price).toFixed(2)} each
           </p>
         </div>
       </div>
@@ -49,17 +49,13 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity }) => {
           >
             -
           </button>
-          <span>
-            <input
-              className=""
-              onChange={(e) => {
-                //   console.log("AAA", e.currentTarget.value);
-
-                handleQuantityEdit(Number(e.currentTarget.value));
-              }}
-              value={quantity}
-            />
-          </span>
+          <input
+            className="w-12 text-center"
+            onChange={(e) => {
+              handleQuantityEdit(Number(e.currentTarget.value));
+            }}
+            value={quantity}
+          />
           <button
             onClick={() => handleQuantityChange(1)}
             className="px-3 py-1 text-gray-600 hover:bg-gray-100 rounded-r-md"
@@ -68,7 +64,7 @@ const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity }) => {
           </button>
         </div>
         <span className="ml-4 text-lg font-semibold text-gray-800">
-          ${(item.product.price * quantity).toFixed(2)}
+          ${(item.price * quantity).toFixed(2)}
         </span>
       </div>
     </li>

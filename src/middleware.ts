@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 import { verifyAccessToken } from "@/app/utils/tokens";
 
 export async function middleware(request: NextRequest) {
@@ -9,8 +9,14 @@ export async function middleware(request: NextRequest) {
     );
 
     const token = request.cookies.get("Authorization")?.value.split(" ")[1];
-    const { payload }: any = await verifyAccessToken(token);
-    console.log("GOT PAYLOAD", payload);
+
+    const parsedUrl = new URL(request.url);
+
+    console.log(":::", parsedUrl.pathname);
+
+    if (!token && parsedUrl.pathname === "/") {
+      return NextResponse.next();
+    }
 
     if (!token) {
       return NextResponse.json(
@@ -18,8 +24,9 @@ export async function middleware(request: NextRequest) {
         { status: 401 }
       );
     }
+    const { payload }: any = await verifyAccessToken(token);
+
     const requestHeaders = new Headers(request.headers);
-    console.log("AAAAAAAAAa", payload.payload._id);
 
     requestHeaders.set("data-userId", payload.payload._id);
 
@@ -34,5 +41,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/cart/:path*", "/products", "/cart"],
+  matcher: ["/api/cart/:path*", "/products", "/cart", "/"],
 };

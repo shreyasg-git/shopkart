@@ -29,8 +29,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     const existingUser = await getUserFromDb(email, pwHash!);
 
-    console.log("AAAAAAAAAa", existingUser);
-
     if (existingUser) {
       return NextResponse.json(
         { message: "User already exists" },

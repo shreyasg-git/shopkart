@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CartPage() {
-  const cartItems = await getCart(); // Replace with actual user ID
+  const cartItems = await getCart();
 
   return (
     <main className="container mx-auto px-4 py-8">

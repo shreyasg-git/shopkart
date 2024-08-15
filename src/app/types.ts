@@ -1,3 +1,5 @@
+import { Condition, ObjectId } from "mongodb";
+
 export type Product = {
   name: string | undefined;
   imageUrl: string | undefined;
@@ -11,6 +13,8 @@ export type Product = {
     rate: number;
     count: number;
   };
+  inCart?: boolean;
+  _id: string | ObjectId;
 };
 export type CartItemType = {
   productId: string;
