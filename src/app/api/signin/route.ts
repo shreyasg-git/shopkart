@@ -10,9 +10,13 @@ import { genNextRes } from "@/app/utils/responseUtils";
 
 const loginUtil = async (data: { email: string; password: string }) => {
   const { email, password } = data;
+  console.log("AAAAAAAAAAAaa", email, password);
+
   const user = await checkIfUserExists(email);
 
-  if (!user) return false;
+  if (!user) {
+    return false;
+  }
 
   const checkPassword = bcrypt.compareSync(password, user.password);
 

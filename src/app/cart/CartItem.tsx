@@ -51,18 +51,24 @@ const CartItem: React.FC<CartItemProps> = ({
           </p>
         </div>
       </div>
-      <div className="flex items-center pt-5 sm:pt-0">
+      <div className="flex items-center pt-5 sm:pt-0 justify-between sm:justify-end  w-full">
         <div className="flex items-center border rounded-md">
           <button
-            onClick={() => handleQuantityChange(-1)}
+            onClick={() => {
+              if (quantity === 1) {
+                return;
+              }
+              handleQuantityChange(-1);
+            }}
             className="px-3 py-1 text-gray-600 hover:bg-gray-100 rounded-l-md"
           >
             -
           </button>
           <input
-            className="w-12 text-center"
+            className="w-12 text-center focus:outline-none focus:bg-gray-200"
             onChange={(e) => {
-              if (quantity === 1) {
+              const newQuant = Number(e.currentTarget.value);
+              if (Number.isNaN(newQuant) || newQuant === 0) {
                 return;
               }
               handleQuantityEdit(Number(e.currentTarget.value));
@@ -78,7 +84,7 @@ const CartItem: React.FC<CartItemProps> = ({
             +
           </button>
         </div>
-        <span className="ml-4 text-lg font-semibold text-gray-800">
+        <span className="ml-4 text-lg font-semibold text-gray-800 min-w-20 ">
           ${(item.price * quantity).toFixed(2)}
         </span>
         <button
