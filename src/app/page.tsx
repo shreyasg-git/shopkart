@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar";
 
 export default function Home() {
   return (
-    <div className=" bg-gray-100 ">
+    <div className="">
       <main className="container mx-auto px-4 py-8">
         <section className="text-center mb-12 ">
           <h2 className="text-4xl font-bold mb-4">Welcome to ShopKart</h2>

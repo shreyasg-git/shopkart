@@ -6,6 +6,7 @@ import ToastContainer from "./components/Toast/ToastContainer";
 import { ToastProvider } from "./components/Toast/useToast";
 import NavBar from "./components/NavBar";
 import { headers } from "next/headers";
+import { checkAuth } from "./utils/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,20 +20,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const userId = headers().get("data-userId");
-
-  const IS_AUTHED = Boolean(userId && userId.length && userId.length >= 0);
+  const isAuthed = checkAuth();
   return (
     <ReactQueryClientProvider>
       <html lang="en">
         <ToastProvider>
           <body>
             <div>
-              <NavBar isAuthed={IS_AUTHED} />
+              <NavBar isAuthed={isAuthed} />
               {children}
               <ToastContainer />
             </div>
-            <footer className="bg-gray-800 text-white py-2 mt-12 h-10 bottom-0 right-0 left-0 static">
+            <footer className="bg-gray-800 text-white py-2 mt-12 h-10 bottom-0 right-0 left-0 absolute">
               <div className="container mx-auto px-4 text-center">
                 Made with 💙 by shreyas
               </div>

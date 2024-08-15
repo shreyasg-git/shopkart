@@ -1,7 +1,6 @@
 "use client";
-import { HTMLAttributes, useMemo } from "react";
-import { Colors } from "../utils/Colors";
-// import Colors from "../../consts/Colors";
+import { HTMLAttributes } from "react";
+import Spinner from "./Spinner";
 
 export enum ButtonTypes {
   PRIMARY = "PRIMARY",
@@ -12,7 +11,11 @@ type ButtonProps = {
   title: string;
   type?: ButtonTypes;
   flat?: boolean;
-} & HTMLAttributes<HTMLButtonElement>;
+  loading?: boolean;
+} & React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
 
 export const Button: React.FC<ButtonProps> = ({
   children,
@@ -20,56 +23,40 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   type = ButtonTypes.PRIMARY,
   flat = false,
+  loading = false,
+  disabled = false,
   ...attributes
 }) => {
-  const { borderColor, textColor, backgroundColor } = useMemo(() => {
-    switch (type) {
-      case ButtonTypes.PRIMARY:
-        return {
-          borderColor: Colors.primary,
-          textColor: Colors.white,
-          backgroundColor: Colors.primary,
-        };
-      case ButtonTypes.SECONDARY:
-        return {
-          borderColor: Colors.secondary,
-          textColor: Colors.primary,
-          backgroundColor: "transparent",
-        };
-      default:
-        return {
-          borderColor: Colors.primary,
-          textColor: Colors.white,
-          backgroundColor: Colors.primary,
-        };
+  const buttonClasses = `
+    cursor-pointer
+    py-2
+    px-4
+    rounded
+    uppercase
+    border
+    ${flat ? "flex-1" : ""}
+    ${
+      type === ButtonTypes.PRIMARY
+        ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
+        : "bg-transparent text-blue-600 border-blue-600 hover:bg-blue-100"
     }
-  }, [type]);
+  `;
 
   return (
     <button
       type="button"
       onClick={onClick}
-      //   className="border border-gray-800 px-4 py-2 rounded uppercase"
-      style={{
-        cursor: "pointer",
-        paddingTop: "0.5rem",
-        paddingBottom: "0.5rem",
-        paddingLeft: "1rem",
-        paddingRight: "1rem",
-        borderRadius: "0.25rem",
-        borderWidth: "1px",
-        // borderColor: "#1F2937",
-        textTransform: "uppercase",
-        // backgroundColor: "#4AB39B",
-        borderColor,
-        color: textColor,
-        backgroundColor,
-
-        flex: flat ? 1 : undefined,
-      }}
+      className={buttonClasses}
+      disabled={disabled || loading}
       {...attributes}
     >
-      {title}
+      {loading ? (
+        <div className="flex justify-center">
+          <Spinner size="sm" />
+        </div>
+      ) : (
+        title
+      )}
     </button>
   );
 };

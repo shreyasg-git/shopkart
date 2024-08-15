@@ -2,11 +2,9 @@
 import client from "@/app/db/db";
 import { getUserFromDb, putUserInDB } from "@/app/db/dbUtils";
 import { saltAndHashPassword } from "@/app/utils/password";
+import { genNextRes } from "@/app/utils/responseUtils";
 import { NextRequest, NextResponse } from "next/server";
 
-const genNextRes = (msg: string, code: number) => {
-  return NextResponse.json({ message: msg }, { status: code });
-};
 export const putProductInDB = async (product: Product) => {
   try {
     await client.connect();

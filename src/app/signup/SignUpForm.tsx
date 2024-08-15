@@ -7,17 +7,11 @@ import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-const validationSchema = Yup.object({
-  fullName: Yup.string().required("Please Enter Your Full Name"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
-
 import React from "react";
 import Link from "next/link";
 import { PRODUCTS } from "../consts/data";
+import { Button } from "../components/Button";
+import { signUpvalidationSchema } from "../schemas";
 
 type ProceedToLoginProps = {};
 
@@ -59,53 +53,40 @@ export default function SignUpForm() {
   });
 
   return (
-    <>
-      <button
-        onClick={() => {
-          console.log("AAAAAAa");
+    <div>
+      <div className="w-96">
+        <Formik
+          initialValues={{ fullName: "", email: "", password: "" }}
+          validationSchema={signUpvalidationSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            // Handle form submission
+            console.log(values);
+            setSubmitting(false);
 
-          PRODUCTS.map(async (product: Product) => {
-            await axios.post(
-              "/api/addproduct",
-              { product },
-              {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-          });
-        }}
-      >
-        SEND IT
-      </button>
-      <Formik
-        initialValues={{ fullName: "", email: "", password: "" }}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          // Handle form submission
-          console.log(values);
-          setSubmitting(false);
-
-          mutate(values);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form className="space-y-4">
-            <InputField name="fullName" label="Full Name" />
-            <InputField name="email" label="Email" type="email" />
-            <InputField name="password" label="Password" type="password" />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-blue-300"
-            >
-              Submit
-            </button>
-            <>{topLevelError ? TopLevelErrors[`${topLevelError}`] : null}</>
-          </Form>
-        )}
-      </Formik>
-    </>
+            mutate(values);
+          }}
+        >
+          {({ isSubmitting, handleSubmit }) => (
+            <Form className="space-y-4">
+              <InputField name="fullName" label="Full Name" />
+              <InputField name="email" label="Email" type="email" />
+              <InputField name="password" label="Password" type="password" />
+              <div className="w-full flex justify-center ">
+                <Button
+                  flat
+                  disabled={isSubmitting}
+                  loading={isSubmitting}
+                  title={"Submit"}
+                  onClick={() => {
+                    handleSubmit();
+                  }}
+                />
+              </div>
+              <>{topLevelError ? TopLevelErrors[`${topLevelError}`] : null}</>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
   );
 }
