@@ -31,11 +31,11 @@ export default function RootLayout({
               {children}
               <ToastContainer />
             </div>
-            <footer className="bg-gray-800 text-white py-2 mt-12 h-10 bottom-0 right-0 left-0 absolute">
+            {/* <footer className="bg-gray-800 text-white py-2 mt-12 h-10 bottom-0 right-0 left-0 absolute">
               <div className="container mx-auto px-4 text-center">
                 Made with 💙 by shreyas
               </div>
-            </footer>
+            </footer> */}
           </body>
         </ToastProvider>
       </html>

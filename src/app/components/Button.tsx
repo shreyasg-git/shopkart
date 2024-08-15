@@ -38,7 +38,7 @@ export const Button: React.FC<ButtonProps> = ({
     ${
       type === ButtonTypes.PRIMARY
         ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700"
-        : "bg-transparent text-blue-600 border-blue-600 hover:bg-blue-100"
+        : "bg-transparent text-grey-600 text-bold border-0 hover:bg-grey-200"
     }
   `;
 

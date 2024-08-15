@@ -42,6 +42,26 @@ export default function CartList({ items, syncCartItems }: CartListProps) {
       setIsDebouncing(false);
     },
   });
+  const deleteCartItemQuantityMutation = useMutation({
+    mutationFn: async ({ productId }: UpdateCartItemQuantity) => {
+      const response = await axios.delete("/api/cart", {
+        data: { productId },
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    },
+    onSuccess: (res) => {
+      syncCartItems(res);
+      setIsDebouncing(false);
+    },
+  });
+
+  const onDeleteItem = (productId: string) => {
+    deleteCartItemQuantityMutation.mutate({ productId });
+  };
 
   const debouncedUpdateQuantity = useDebounce(
     (productId: string, newQuantity: number) => {
@@ -67,6 +87,7 @@ export default function CartList({ items, syncCartItems }: CartListProps) {
           <ul className="divide-y divide-gray-200">
             {items.map((item) => (
               <CartItem
+                onDeleteItem={onDeleteItem}
                 key={item.productId.toString()}
                 item={item}
                 onUpdateQuantity={handleQuantityChange}

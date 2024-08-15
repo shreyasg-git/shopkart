@@ -2,7 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "./Button";
+import { Button, ButtonTypes } from "./Button";
 
 type NavLinkProps = {
   href: string;
@@ -46,18 +46,21 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
     </button>
     {isOpen && (
       <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-        <Button
-          flat
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          title="Logout"
-          onClick={async () => {
-            await axios.post("/api/signout", {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
-          }}
-        />
+        <div className="w-full  flex">
+          <Button
+            flat
+            type={ButtonTypes.SECONDARY}
+            // className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            title="Logout"
+            onClick={async () => {
+              await axios.post("/api/signout", {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              });
+            }}
+          />
+        </div>
       </div>
     )}
   </div>
