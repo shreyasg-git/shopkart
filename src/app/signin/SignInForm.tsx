@@ -50,7 +50,7 @@ export default function SignInForm() {
 
   return (
     <div>
-      <div className="w-96">
+      <div className="w-96 p-6">
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}

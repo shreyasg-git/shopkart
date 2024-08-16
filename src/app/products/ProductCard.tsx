@@ -62,8 +62,8 @@ export default function ProductCard({
   });
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-4">
-      <div className="flex h-48 mb-4  justify-center align-middle  w-full">
+    <div className="shadow-md rounded-lg p-4 bg-slate-100">
+      <div className="flex h-48 mb-4  justify-center align-middle  w-full bg-white rounded">
         <img
           src={product.image}
           alt={product.name}

@@ -31,6 +31,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return genNextRes("User already exists", 409);
     }
 
+    console.log(
+      "CREATEING NEW USER WITH :: ",
+      email,
+      " :: ",
+      pwHash!,
+      " :: ",
+      fullName
+    );
+
     const user = await putUserInDB(email, pwHash!, fullName);
     return NextResponse.json(
       { message: "User created successfully", data: user },

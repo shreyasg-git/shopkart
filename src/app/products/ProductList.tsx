@@ -14,7 +14,8 @@ export default function ProductList({ products }: ProductListProps) {
 
   return (
     <>
-      <div className="w-full justify-end  flex">
+      <div className="w-full justify-between flex mb-8">
+        <h1 className="text-2xl font-bold mb-1">Our Products</h1>
         <SortDropdown onSortChange={handleSort} />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

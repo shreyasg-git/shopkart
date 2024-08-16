@@ -12,6 +12,7 @@ import Link from "next/link";
 import { PRODUCTS } from "../consts/data";
 import { Button } from "../components/Button";
 import { signUpvalidationSchema } from "../schemas";
+import { redirect, useRouter } from "next/navigation";
 
 type ProceedToLoginProps = {};
 
@@ -32,10 +33,11 @@ const TopLevelErrors = {
 };
 
 export default function SignUpForm() {
+  const navRouter = useRouter();
   const [topLevelError, setTopLevelError] = useState<
     keyof typeof TopLevelErrors | null
   >(null);
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data: any) => {
       const response = await axios.post("/api/signup", data, {
         headers: {
@@ -51,13 +53,14 @@ export default function SignUpForm() {
       }
     },
     onSuccess: () => {
+      navRouter.push("/signin");
       console.log("yo success success");
     },
   });
 
   return (
     <div>
-      <div className="w-96">
+      <div className="w-96 p-10">
         <Formik
           initialValues={{ fullName: "", email: "", password: "" }}
           validationSchema={signUpvalidationSchema}
@@ -77,8 +80,8 @@ export default function SignUpForm() {
               <div className="w-full flex justify-center ">
                 <Button
                   flat
-                  disabled={isSubmitting}
-                  loading={isSubmitting}
+                  disabled={isSubmitting || isPending}
+                  loading={isSubmitting || isPending}
                   title={"Submit"}
                   onClick={() => {
                     handleSubmit();

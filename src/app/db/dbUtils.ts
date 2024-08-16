@@ -6,6 +6,7 @@ export const getUserFromDb = async (email: string, hashedPass: string) => {
   const collection = db.collection("users");
 
   const user = await collection.findOne({ email });
+  console.log("FOUND USER ::: ", user);
 
   return user;
 };

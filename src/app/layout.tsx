@@ -18,14 +18,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isAuthed = checkAuth();
   return (
     <ReactQueryClientProvider>
       <html lang="en">
         <ToastProvider>
           <body>
             <div>
-              <NavBar isAuthed={isAuthed} />
               {children}
               <ToastContainer />
             </div>

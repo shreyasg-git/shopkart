@@ -4,14 +4,15 @@ import { useState } from "react";
 import NavBar from "./components/NavBar/NavBar";
 import Padding from "./components/Padding";
 import { checkAuth } from "./utils/utils";
+import Page from "./components/Page";
 // components/Navbar.tsx
 
 export default function Home() {
   const isAuthed = checkAuth();
-  console.log("AUTHAUTHAUTHAUTH", isAuthed);
 
   return (
-    <>
+    <Page>
+      {/* <NavBar isAuthed={isAuthed} /> */}
       <main className=" w-screen ">
         <section className="text-center h-svh flex justify-center items-center flex-col px-6">
           <h2 className="sm:text-4xl text-3xl font-bold mb-4">
@@ -58,6 +59,6 @@ export default function Home() {
           )}
         </section>
       </main>
-    </>
+    </Page>
   );
 }

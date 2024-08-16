@@ -10,10 +10,10 @@ import { genNextRes } from "@/app/utils/responseUtils";
 
 const loginUtil = async (data: { email: string; password: string }) => {
   const { email, password } = data;
-  console.log("AAAAAAAAAAAaa", email, password);
 
   const user = await checkIfUserExists(email);
 
+  console.log("AAAAAAAAAAAaa", password, " ::: ", user);
   if (!user) {
     return false;
   }
