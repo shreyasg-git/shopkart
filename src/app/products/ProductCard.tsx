@@ -38,7 +38,7 @@ export default function ProductCard({
     },
     onSuccess: (data) => {
       router.refresh();
-      setIsAdding(false);
+      // setIsAdding(false);
 
       // Update global cart state or show success toast
       showToast({
@@ -49,9 +49,15 @@ export default function ProductCard({
       });
     },
     onError: (error) => {
+      showToast({
+        message: "Something Went Wrong",
+        color: "success",
+        duration: 5000,
+        position: "bottom-center",
+      });
       setIsAdding(false);
       console.error("Error adding to cart:", error);
-      alert("Failed to add to cart");
+      // alert("Failed to add to cart");
     },
   });
 

@@ -22,7 +22,14 @@ export const signAccessToken = async (payload: any): Promise<string> => {
 };
 
 export const verifyAccessToken = async (token: any) => {
-  const payload = jwtVerify(token, new TextEncoder().encode(accessTokenSecret));
-
-  return payload;
+  try {
+    const payload = await jwtVerify(
+      token,
+      new TextEncoder().encode(accessTokenSecret)
+    );
+    return payload;
+  } catch (error) {
+    console.log("JWT VERIFY FAILED");
+    return null;
+  }
 };

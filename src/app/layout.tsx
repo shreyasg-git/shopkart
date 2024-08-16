@@ -4,11 +4,9 @@ import "./globals.css";
 import { ReactQueryClientProvider } from "./components/RQClient";
 import ToastContainer from "./components/Toast/ToastContainer";
 import { ToastProvider } from "./components/Toast/useToast";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar/NavBar";
 import { headers } from "next/headers";
 import { checkAuth } from "./utils/utils";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",

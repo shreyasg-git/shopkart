@@ -16,9 +16,18 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Password is required"),
 });
 
+const TOP_LEVEL_MSGS = {
+  WRONG_EMAIL_PASS: "Wrong Email Or Password",
+  WENT_WRONG: "Something Went Wrong",
+};
+
 export default function SignInForm() {
   const nav = useRouter();
-  const { mutate } = useMutation({
+  const [topLevelMessage, settopLevelMessage] = useState<
+    keyof typeof TOP_LEVEL_MSGS | null
+  >(null);
+
+  const { mutate, isPending } = useMutation({
     mutationFn: async (data: any) => {
       const response = await axios.post("/api/signin", data, {
         headers: {
@@ -28,10 +37,14 @@ export default function SignInForm() {
       return response.data;
     },
     onSuccess: () => {
-      nav.push("/products");
+      nav.replace("/products");
     },
-    onError: () => {
-      console.log("YEEEEEEEEe");
+    onError: (error) => {
+      if (error.response.status === 401) {
+        settopLevelMessage("WRONG_EMAIL_PASS");
+      } else {
+        settopLevelMessage("WENT_WRONG");
+      }
     },
   });
 
@@ -53,11 +66,18 @@ export default function SignInForm() {
             <Form className="space-y-4">
               <InputField name="email" label="Email" type="email" />
               <InputField name="password" label="Password" type="password" />
+              {topLevelMessage ? (
+                <div className="text-red-500 text-md mt-1 w-full  text-center">
+                  {TOP_LEVEL_MSGS[topLevelMessage]}
+                </div>
+              ) : null}
               <div className="w-full flex justify-center ">
                 <Button
                   flat
-                  disabled={isSubmitting}
-                  loading={isSubmitting}
+                  // disabled={isSubmitting || isPending}
+                  // loading={isSubmitting || isPending}
+                  disabled={isSubmitting || isPending}
+                  loading={isSubmitting || isPending}
                   title={"Submit"}
                   onClick={() => {
                     handleSubmit();

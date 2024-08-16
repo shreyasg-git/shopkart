@@ -55,7 +55,10 @@ export const Button: React.FC<ButtonProps> = ({
           <Spinner size="sm" />
         </div>
       ) : (
-        title
+        <>
+          {title}
+          {children}
+        </>
       )}
     </button>
   );

@@ -25,54 +25,43 @@ export async function middleware(request: NextRequest) {
 
     const parsedUrl = new URL(request.url);
 
-    console.log(":::", parsedUrl.pathname);
+    // console.log(":::", parsedUrl.pathname, " ::: ", token);
 
-    if (
-      !token &&
-      ![...OPEN_ROUTES, ...STRICT_ROUTES, ...CLOSE_ROUTES].includes(
-        parsedUrl.pathname
-      )
-    ) {
-      console.log("IRRELEVANT ROUTE");
+    const tokenData = await verifyAccessToken(token);
 
-      return NextResponse.next();
+    if (!tokenData) {
+      if (
+        ![...OPEN_ROUTES, ...STRICT_ROUTES, ...CLOSE_ROUTES].includes(
+          parsedUrl.pathname
+        )
+      ) {
+        console.log("IRRELEVANT ROUTE");
+        return NextResponse.next();
+      } else if (OPEN_ROUTES.includes(parsedUrl.pathname)) {
+        console.log("OPEN ROUTE");
+        return NextResponse.next();
+      } else if (STRICT_ROUTES.includes(parsedUrl.pathname)) {
+        console.log("STRICT ROUTE, NO tokenData");
+        return NextResponse.next();
+      } else {
+        console.log("NO TOKEN");
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
     }
 
-    if (!token && OPEN_ROUTES.includes(parsedUrl.pathname)) {
-      console.log("OPEN ROUTE");
-
-      return NextResponse.next();
-    }
-
-    if (token && STRICT_ROUTES.includes(parsedUrl.pathname)) {
+    if (tokenData && STRICT_ROUTES.includes(parsedUrl.pathname)) {
       console.log("STRICT ROUTE");
-
       return NextResponse.redirect(baseURL + "/products");
     }
 
-    if (!token && STRICT_ROUTES.includes(parsedUrl.pathname)) {
-      console.log("STRICT ROUTE, NO TOKEN");
-      return NextResponse.next();
-    }
-
-    if (!token) {
-      console.log("NO TOKEN");
-      return NextResponse.json(
-        { error: "Authentication required" },
-        { status: 401 }
-      );
-    }
-
-    const { payload }: any = await verifyAccessToken(token);
-
     const requestHeaders = new Headers(request.headers);
 
-    requestHeaders.set("data-userId", payload.payload._id);
+    requestHeaders.set("data-userId", tokenData.payload._id);
 
     return NextResponse.next({ request: { headers: requestHeaders } });
   } catch (error) {
     console.error("ERROR IN MIDDLEWARE :: ", error);
-    return genNextRes("Unauthorized", 401);
+    return genNextRes("Internal Server Error", 500);
   }
 }
 

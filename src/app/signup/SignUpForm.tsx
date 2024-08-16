@@ -19,7 +19,10 @@ const ProceedToLogin: React.FC<ProceedToLoginProps> = ({}) => {
   return (
     <div>
       Seems like you already have an account. Please proceed to
-      <Link href="/signin"> Login</Link>.
+      <Link href="/signin" className="hover:text-blue-500 text-blue-300">
+        Login
+      </Link>
+      .
     </div>
   );
 };
