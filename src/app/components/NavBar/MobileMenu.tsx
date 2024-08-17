@@ -16,7 +16,7 @@ export const useLogout = () => {
       });
     },
     onSuccess: () => {
-      navrouter.replace("/signin");
+      navrouter.push("/signin");
     },
   });
 

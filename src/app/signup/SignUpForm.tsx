@@ -54,7 +54,7 @@ export default function SignUpForm() {
       }
     },
     onSuccess: () => {
-      console.log("SIGN IN SUCCESS :: nav to /signin");
+      console.log("SIGN UP SUCCESS :: nav to /signin");
       navRouter.push("/signin");
     },
   });

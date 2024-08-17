@@ -77,5 +77,6 @@ export const config = {
     "/signin",
     "/signup",
     "/api/cart/checkout",
+    "/unauth",
   ],
 };

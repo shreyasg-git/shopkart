@@ -1,6 +1,4 @@
-// app/unauthorized/page.tsx
 import Link from "next/link";
-import NavBar from "../components/NavBar/NavBar";
 import Page from "../components/Page";
 
 export default function UnauthorizedPage() {
