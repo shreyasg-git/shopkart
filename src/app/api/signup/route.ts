@@ -11,12 +11,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return genNextRes("Method not allowed", 405);
     }
 
-    const { email, password, fullName } = await req.json();
+    const { email, password, fullName, confirmPassword } = await req.json();
 
     const validated = await signUpvalidationSchema.validate({
       email,
       password,
       fullName,
+      confirmPassword,
     });
 
     if (!email || !password || !fullName) {
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     console.log(
-      "CREATEING NEW USER WITH :: ",
+      "CREATING NEW USER WITH :: ",
       email,
       " :: ",
       pwHash!,

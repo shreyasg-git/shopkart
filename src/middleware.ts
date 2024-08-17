@@ -2,15 +2,12 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { verifyAccessToken } from "@/app/utils/tokens";
 import { genNextRes } from "./app/utils/responseUtils";
-import { log } from "console";
-
-export const baseURL = "http://localhost:3000";
 
 // routes that go thru middleware, and accessible without token (no early return, just token injection)
 const OPEN_ROUTES = ["/"];
 
 // routes that go thru middleware, but are not accessible without token (early return)
-const CLOSE_ROUTES = ["/api/cart", "/cart", "/products"];
+const CLOSE_ROUTES = ["/api/cart", "/cart", "/products", "/api/cart/checkout"];
 
 // routes that go thru middleware, but are not accessible to authed user
 const STRICT_ROUTES = ["/signin", "/signup"];
@@ -24,10 +21,13 @@ export async function middleware(request: NextRequest) {
     const token = request.cookies.get("Authorization")?.value.split(" ")[1];
 
     const parsedUrl = new URL(request.url);
+    const baseURL = parsedUrl.origin;
 
-    // console.log(":::", parsedUrl.pathname, " ::: ", token);
+    console.log(":::", baseURL, " ::: ");
 
     const tokenData = await verifyAccessToken(token);
+
+    // console.log(next);
 
     if (!tokenData) {
       if (
@@ -58,15 +58,24 @@ export async function middleware(request: NextRequest) {
 
     const requestHeaders = new Headers(request.headers);
 
-    requestHeaders.set("data-userId", tokenData.payload._id);
+    requestHeaders.set("data-userId", tokenData.payload._id as string);
 
     return NextResponse.next({ request: { headers: requestHeaders } });
   } catch (error) {
     console.error("ERROR IN MIDDLEWARE :: ", error);
+
     return genNextRes("Internal Server Error", 500);
   }
 }
 
 export const config = {
-  matcher: ["/", "/api/cart", "/cart", "/products", "/signin", "/signup"],
+  matcher: [
+    "/",
+    "/api/cart",
+    "/cart",
+    "/products",
+    "/signin",
+    "/signup",
+    "/api/cart/checkout",
+  ],
 };

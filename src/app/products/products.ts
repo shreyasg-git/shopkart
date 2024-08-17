@@ -2,20 +2,16 @@ import { headers } from "next/headers";
 import client from "@/app/db/db";
 import { Product } from "../types";
 import { useParams } from "next/navigation";
+import { CONSTS } from "../consts/consts";
 
 export async function getProducts(...props: any[]): Promise<Product[] | null> {
   try {
     const headersList = headers();
 
-    const router = console.log(
-      "SORTSORTSORTSORTSORTSORTSORTSORTSORTSORTSORT",
-      props
-    );
-
     const userId = headersList.get("data-userId");
 
     await client.connect();
-    const db = client.db("workflo");
+    const db = client.db(CONSTS.DB_NAME);
     const collection = db.collection("products");
     const cartCollection = db.collection("carts");
 

@@ -1,10 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import React, { Dispatch, SetStateAction, useMemo, useState } from "react";
-import useDebounce from "../utils/useDebounce";
+import React, { useState } from "react";
 import { CartItemType } from "@/app/types";
-import Spinner from "../components/Spinner";
 import DeleteIcon from "../components/DeleteButton";
+import Image from "../components/Image";
 
 type CartItemProps = {
   item: CartItemType;
@@ -37,11 +34,9 @@ const CartItem: React.FC<CartItemProps> = ({
   return (
     <li className="py-4 flex items-center flex-col justify-between sm:flex-row ">
       <div className="flex items-center">
-        <img
-          src={item.image}
-          alt={item.title}
-          className="w-16 h-16 object-cover rounded-md mr-4"
-        />
+        <div className="w-auto h-16 object-cover rounded-md mr-4">
+          <Image alt={item.title} src={item.image} />
+        </div>
         <div>
           <h3 className="md:text-lg sm:text-sm font-semibold text-gray-800 line-clamp-2 hover:line-clamp-none">
             {item.title}

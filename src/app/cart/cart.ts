@@ -2,13 +2,14 @@ import { CartItemType, Product } from "@/app/types";
 import client from "../db/db";
 
 import { cookies, headers } from "next/headers";
+import { CONSTS } from "../consts/consts";
 
 export async function getCart(): Promise<CartItemType[]> {
   const userId = headers().get("data-userId");
 
   await client.connect();
 
-  const db = client.db("workflo");
+  const db = client.db(CONSTS.DB_NAME);
 
   const cartCollection = db.collection("carts");
   const productCollection = db.collection("products");

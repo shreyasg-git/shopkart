@@ -13,7 +13,6 @@ const loginUtil = async (data: { email: string; password: string }) => {
 
   const user = await checkIfUserExists(email);
 
-  console.log("AAAAAAAAAAAaa", password, " ::: ", user);
   if (!user) {
     return false;
   }

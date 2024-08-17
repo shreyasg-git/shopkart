@@ -7,9 +7,7 @@ export default function UnauthorizedPage() {
   return (
     <Page>
       <main className="container mx-auto px-4 py-4 text-center">
-        <h1 className="text-2xl font-bold mb-4 text-red-500">
-          Unauthorized Access
-        </h1>
+        <h1 className="text-2xl font-bold mb-4 text-red-500">Unauthorized</h1>
         <p className="mb-4">You don't have permission to access this page.</p>
         <Link href="/signin" className="text-blue-500 hover:underline">
           Sign In

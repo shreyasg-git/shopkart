@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import useDebounce from "../utils/useDebounce";
 import Spinner from "../components/Spinner";
 import CartItem from "./CartItem";
+import Checkout from "./Checkout";
 
 type UpdateCartItemQuantity = {
   productId: string;
@@ -124,6 +125,7 @@ export default function CartList({ items, syncCartItems }: CartListProps) {
           </>
         )}
       </div>
+      <Checkout disabled={items.length === 0} />
     </>
   );
 }

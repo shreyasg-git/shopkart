@@ -7,6 +7,8 @@ import { Product } from "../types";
 import { Dispatch, SetStateAction, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Image from "@/app/components/Image";
+import React from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -64,11 +66,7 @@ export default function ProductCard({
   return (
     <div className="shadow-md rounded-lg p-4 bg-slate-100">
       <div className="flex h-48 mb-4  justify-center align-middle  w-full bg-white rounded">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="h-full  mb-4 rounded"
-        />
+        <Image alt={product.name!} src={product.image} />
       </div>
       <h2 className="text-md font-semibold mb-2 line-clamp-1 sm:text-md">
         {product.title}

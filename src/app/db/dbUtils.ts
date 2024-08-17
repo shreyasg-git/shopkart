@@ -1,8 +1,9 @@
+import { CONSTS } from "../consts/consts";
 import client from "./db";
 
 export const getUserFromDb = async (email: string, hashedPass: string) => {
   await client.connect();
-  const db = client.db("workflo");
+  const db = client.db(CONSTS.DB_NAME);
   const collection = db.collection("users");
 
   const user = await collection.findOne({ email });
@@ -13,7 +14,7 @@ export const getUserFromDb = async (email: string, hashedPass: string) => {
 
 export const checkIfUserExists = async (email: string) => {
   await client.connect();
-  const db = client.db("workflo");
+  const db = client.db(CONSTS.DB_NAME);
   const collection = db.collection("users");
   const user = await collection.findOne({ email });
 
@@ -27,7 +28,7 @@ export const putUserInDB = async (
   fullName: string
 ) => {
   await client.connect();
-  const db = client.db("workflo");
+  const db = client.db(CONSTS.DB_NAME);
   const collection = db.collection("users");
   const user = await collection.insertOne({
     email,

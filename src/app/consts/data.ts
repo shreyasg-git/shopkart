@@ -1,3 +1,4 @@
+// in production data is coming from database, this is here just for preview
 export const PRODUCTS = [
   {
     title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",

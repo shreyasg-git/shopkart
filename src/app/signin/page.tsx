@@ -9,7 +9,6 @@ export default function SignIn() {
     <Page>
       <div className="container mx-auto mt-10  flex flex-col items-center justify-center">
         <h1 className="text-3xl font-bold mb-5">Sign In</h1>
-        {/* <Spinner size="sm" /> */}
         <SignInForm />
       </div>
     </Page>

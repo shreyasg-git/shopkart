@@ -13,6 +13,7 @@ import { PRODUCTS } from "../consts/data";
 import { Button } from "../components/Button";
 import { signUpvalidationSchema } from "../schemas";
 import { redirect, useRouter } from "next/navigation";
+import { Product } from "../types";
 
 type ProceedToLoginProps = {};
 
@@ -53,8 +54,8 @@ export default function SignUpForm() {
       }
     },
     onSuccess: () => {
+      console.log("SIGN IN SUCCESS :: nav to /signin");
       navRouter.push("/signin");
-      console.log("yo success success");
     },
   });
 
@@ -62,7 +63,12 @@ export default function SignUpForm() {
     <div>
       <div className="w-96 p-10">
         <Formik
-          initialValues={{ fullName: "", email: "", password: "" }}
+          initialValues={{
+            fullName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }}
           validationSchema={signUpvalidationSchema}
           onSubmit={(values, { setSubmitting }) => {
             // Handle form submission
@@ -77,6 +83,11 @@ export default function SignUpForm() {
               <InputField name="fullName" label="Full Name" />
               <InputField name="email" label="Email" type="email" />
               <InputField name="password" label="Password" type="password" />
+              <InputField
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+              />
               <div className="w-full flex justify-center ">
                 <Button
                   flat
