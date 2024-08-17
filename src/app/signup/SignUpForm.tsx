@@ -61,6 +61,23 @@ export default function SignUpForm() {
 
   return (
     <div>
+      {/* <button
+        onClick={() => {
+          PRODUCTS.map(async (product: Product) => {
+            await axios.post(
+              "/api/addproduct",
+              { product },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+          });
+        }}
+      >
+        SEND IT
+      </button>{" "} */}
       <div className="w-96 p-10">
         <Formik
           initialValues={{

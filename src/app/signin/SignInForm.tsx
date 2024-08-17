@@ -37,7 +37,11 @@ export default function SignInForm() {
       return response.data;
     },
     onSuccess: () => {
-      nav.replace("/products");
+      try {
+        nav.replace("/products");
+      } catch (error) {
+        console.log("EERRR IN REPLCE", error);
+      }
     },
     onError: (error) => {
       if (error.response.status === 401) {
