@@ -21,6 +21,7 @@ export default function RootLayout({
   return (
     <ReactQueryClientProvider>
       <html lang="en">
+        <title>ShopKart</title>
         <ToastProvider>
           <body>
             <div>
