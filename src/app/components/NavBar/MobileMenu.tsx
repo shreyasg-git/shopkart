@@ -17,6 +17,7 @@ export const useLogout = () => {
     },
     onSuccess: () => {
       navrouter.push("/signin");
+      navrouter.refresh();
     },
   });
 

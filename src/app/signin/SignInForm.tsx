@@ -37,15 +37,10 @@ export default function SignInForm() {
       return response.data;
     },
     onSuccess: () => {
-      try {
-        nav.push("/products");
-      } catch (error) {
-        console.log("EERRR IN REPLCE", error);
-      }
+      nav.push("/products");
+      nav.refresh();
     },
     onError: (error) => {
-      console.log("YOYOYOY", error);
-
       if (error.response.status === 401) {
         settopLevelMessage("WRONG_EMAIL_PASS");
       } else {
