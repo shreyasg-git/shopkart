@@ -37,7 +37,7 @@ export default function SignInForm() {
       return response.data;
     },
     onSuccess: () => {
-      nav.push("/products");
+      // nav.push("/products");
       nav.refresh();
     },
     onError: (error) => {
