@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import axios from "axios";
 import CheckoutCompleteModal from "@/app/components/CheckoutModal";
-import { Button } from "../components/Button";
+import { Button } from "../../components/Button";
 import { useRouter } from "next/navigation";
 
 const checkoutMutation = async () => {

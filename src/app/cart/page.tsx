@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getCart } from "./cart";
 
-import Cart from "./Cart";
+import Cart from "./components/Cart";
 import Page from "../components/Page";
 
 export const metadata: Metadata = {

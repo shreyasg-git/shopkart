@@ -1,9 +1,9 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { useToast } from "../components/Toast/useToast";
+import { useToast } from "../../components/Toast/useToast";
 // import { Product } from "@/lib/types";
-import { Product } from "../types";
+import { Product } from "../../types";
 import { Dispatch, SetStateAction, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";

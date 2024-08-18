@@ -1,10 +1,8 @@
-// CartPageClient.jsx
 "use client";
 
 import { useState, useEffect } from "react";
 import CartList from "./CartList";
-// import CartSummary from "./CartSummary";
-import { CartItemType } from "../types";
+import { CartItemType } from "../../types";
 
 type CartPageClientProps = { initItems: CartItemType[] };
 

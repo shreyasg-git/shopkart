@@ -1,10 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Button, ButtonTypes } from "../Button";
+import { useState } from "react";
 import { MobileMenu, MobileMenuButton } from "./MobileMenu";
 import { Logo } from "./Logo";
 import { DesktopMenu } from "./DesktopMenu";
-import { useRouter } from "next/navigation";
 
 type NavBarProps = {
   isAuthed?: boolean;

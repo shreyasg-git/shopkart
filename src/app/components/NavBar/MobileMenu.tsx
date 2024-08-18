@@ -1,28 +1,7 @@
 import Link from "next/link";
 import { NavLink } from "./NavLink";
 import { Button, ButtonTypes } from "../Button";
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-
-export const useLogout = () => {
-  const navrouter = useRouter();
-  const logOutMutation = useMutation({
-    mutationFn: async () => {
-      await axios.post("/api/signout", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    },
-    onSuccess: () => {
-      navrouter.push("/signin");
-      navrouter.refresh();
-    },
-  });
-
-  return { logOutMutation };
-};
+import { useLogout } from "@/app/utils/useLogout";
 
 type MobileMenuProps = {
   isOpen: boolean;

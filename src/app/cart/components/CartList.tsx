@@ -4,8 +4,8 @@ import { CartItemType } from "@/app/types";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Dispatch, SetStateAction, useMemo, useState } from "react";
-import useDebounce from "../utils/useDebounce";
-import Spinner from "../components/Spinner";
+import useDebounce from "../../utils/useDebounce";
+import Spinner from "../../components/Spinner";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 
