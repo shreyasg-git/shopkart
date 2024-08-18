@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CartItemType } from "@/app/types";
-import DeleteIcon from "../components/DeleteButton";
-import Image from "../components/Image";
+import DeleteIcon from "../../components/DeleteButton";
+import Image from "../../components/Image";
 
 type CartItemProps = {
   item: CartItemType;

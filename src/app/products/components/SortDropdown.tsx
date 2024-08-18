@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import Dropdown from "./Dropdown";
+import Dropdown from "@/app/components/Dropdown";
 
 type SortOption = "lowToHigh" | "highToLow" | "default";
 

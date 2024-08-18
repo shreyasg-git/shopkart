@@ -1,6 +1,5 @@
-import axios from "axios";
 import { Button, ButtonTypes } from "../Button";
-import { useLogout } from "./MobileMenu";
+import { useLogout } from "@/app/utils/useLogout";
 import ProfileSVG from "../ProfileSVG";
 
 type ProfileDropdownProps = {

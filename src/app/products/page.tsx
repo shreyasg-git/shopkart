@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ProductList from "./ProductList";
+import ProductList from "./components/ProductList";
 import { getProducts } from "./products";
 import NavBar from "../components/NavBar/NavBar";
 import { checkAuth } from "../utils/utils";

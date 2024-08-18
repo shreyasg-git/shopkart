@@ -22,12 +22,31 @@ All the pages in the app are rendered thoughtfully either on server or client. H
 | /signup   | Server Side                         |
 | /products | Server Side (sorting - client side) |
 | /cart     | Server Side                         |
+| /unauth   | Server Side                         |
 
 Additionally, it also has server-side APIs, which are called when a client component needs some data.
 
 Apart from that, the components which use client side features are rendered client side.
 
 I have made sure that it checks out all the requirements specified in the document.
+
+### Notes about folder structure
+
+This project uses NextJS App Router. Which means every page has following structure -
+
+| file               | actual pathname |
+| ------------------ | --------------- |
+| /cart/page.tsx     | /cart           |
+| /products/page.tsx | /products       |
+| /signin/page.tsx   | /signin         |
+| /signup/page.tsx   | /signup         |
+| /unauth/page.tsx   | /unauth         |
+
+And for API Routes -
+`/api/cart/route.ts` is actually `api/cart/`
+
+- Each folder also contains components specific to it, which are not reusable elsewhere.
+- Most of these specific components mostly wrap around or are a composition of highly reusable components, which are stored in /components. e.g. - `SortDropdown` is a wrapper around `Dropdown`
 
 ### Docs
 
