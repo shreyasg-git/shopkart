@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { Product } from "../../types";
 import ProductCard from "./ProductCard";
-import SortDropdown from "../../components/SortDropdown";
-
+import SortDropdown from "./SortDropdown";
 interface ProductListProps {
   products: Product[];
 }
