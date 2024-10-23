@@ -1,6 +1,5 @@
 ## Hello 👋
-
-This is my submission for the job posting.
+This is an implementation of Shopping Cart using NextJS app router. Showcases appropriate rendering choices and an authentication system built with all the best practices.
 
 ### Tech Stack
 
